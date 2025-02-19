@@ -2,8 +2,8 @@ spring:
   application:
     name: order
   datasource:
-    url: jdbc:postgresql://{POSTGRES_URL:localhost:5432/order}
-    password: {POSTGRES_PASS:postgres}
+    url: jdbc:postgresql://${POSTGRES_URL:localhost:5432/order}
+    password: ${POSTGRES_PASS:postgres}
     username: ${POSTGRES_USER:postgres}
   cloud:
     function:
