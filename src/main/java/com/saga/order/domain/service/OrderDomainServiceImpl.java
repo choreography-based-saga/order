@@ -8,6 +8,8 @@ import com.saga.order.domain.out.OrderProducerApi;
 import com.saga.order.domain.out.OrderRepositoryApi;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,6 +17,7 @@ import java.util.*;
 
 @RequiredArgsConstructor
 public class OrderDomainServiceImpl implements OrderDomainServiceApi {
+    private static final Logger log = LoggerFactory.getLogger(OrderDomainServiceImpl.class);
     private final OrderRepositoryApi orderRepositoryApi;
     private final OrderProducerApi orderProducerApi;
     private final MerchantProductRepositoryApi merchantProductRepositoryApi;
@@ -52,7 +55,9 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
         // create suborders per merchant
         order = createSubordersPerMerchant(order, productsGroupedByMerchant);
         orderRepositoryApi.upsertOrder(order);
+        log.info("Sending order");
         orderProducerApi.send(order);
+        log.info("Sent order");
         return true;
     }
 
