@@ -73,6 +73,11 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
         orderProducerApi.send(order);
     }
 
+    @Override
+    public List<String> getOrderIds() {
+        return orderRepositoryApi.findAll().stream().map(Order::orderId).toList();
+    }
+
     private Map<Merchant, List<Product>> groupBasketByMerchants(Set<BasketItem> basket) {
         Map<Merchant, List<Product>> productsGroupedByMerchant = new HashMap<>();
         for (BasketItem item : basket) {

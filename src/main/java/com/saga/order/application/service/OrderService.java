@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -31,4 +33,9 @@ public class OrderService {
     public boolean createOrder(CreateOrderRequest request) {
         return orderDomainServiceApi.createOrder(orderResponseMapper.toDomain(request));
     }
+
+    public List<String> getOrders() {
+        return orderDomainServiceApi.getOrderIds();
+    }
+
 }

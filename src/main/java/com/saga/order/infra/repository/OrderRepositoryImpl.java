@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -59,5 +60,10 @@ public class OrderRepositoryImpl implements OrderRepositoryApi {
     @Override
     public Optional<Order> findByOrderId(String orderId) {
         return orderEntityRepository.findByOrderId(orderId).map(orderEntityMapper::toOrderDomain);
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return orderEntityRepository.findAll().stream().map(orderEntityMapper::toOrderDomain).toList();
     }
 }
